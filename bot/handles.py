@@ -1,3 +1,4 @@
 
+
 def ping(message):
-    return "pong"
+    print("pong")
