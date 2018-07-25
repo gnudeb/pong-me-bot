@@ -7,8 +7,8 @@ import json
 import os
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-SECRETS_PATH = os.path.join(BASE_DIR, "secrets.json")
+SETTINGS_PATH = os.path.join(BASE_DIR, "settings.json")
 
-with open(SECRETS_PATH, 'r') as secrets_file:
-    secrets = json.load(secrets_file)
-    TG_TOKEN = secrets["TG_TOKEN"]
+with open(SETTINGS_PATH, 'r') as secrets_file:
+    settings = json.load(secrets_file)
+    TG_TOKEN = settings["TG_TOKEN"]

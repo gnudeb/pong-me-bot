@@ -1,3 +1,10 @@
-from bot.core import Bot, MessageHandler
+from bot.bot import Bot
+from bot.settings import TG_TOKEN
 
-Bot().run()
+
+async def echo(message):
+    print(message['message']['text'])
+
+bot = Bot(TG_TOKEN)
+bot.handler = echo
+bot.run()
