@@ -55,19 +55,18 @@ class Bot:
 
     async def api_call(self, method: str, **kwargs):
         url = f"{self._api_entry}/bot{self.token}/{method}"
-
         if kwargs:
             url += f"?{urlencode(kwargs)}"
 
         log.debug(f"Issuing API call: {url}")
-        async with self.http_session.get(url) as response:
-            if response.status != 200:
-                msg = f"API call returned code {response.status}: {url}"
-                log.error(msg)
-                raise BadAPIResponseError(msg)
+        response = self.http_session.get(url)
 
-            data = json.loads(await response.read())
+        if response.status != 200:
+            msg = f"API call returned code {response.status}: {url}"
+            log.error(msg)
+            raise BadAPIResponseError(msg)
 
+        data = json.loads(await response.read())
         if not data['ok']:
             raise BadAPIResponseError(f"API call returned not ok with message: {data['description']}")
 
