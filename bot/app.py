@@ -1,15 +1,22 @@
+import json
+
 from telegram.ext import Updater, CommandHandler, MessageHandler
 from telegram.ext.filters import Filters
 
 from .bot import PongBot
-from .settings import TG_TOKEN
 from . import handlers
 
 
 class App:
 
-    def __init__(self):
-        self.bot = PongBot(TG_TOKEN)
+    def __init__(self, settings_path: str="default_config.json"):
+        with open(settings_path, 'r') as f:
+            self.settings = json.load(f)
+
+        self.dispatch_interval = self.settings["DISPATCH_INTERVAL"]
+        self.bot = PongBot(
+            token=self.settings["TG_TOKEN"],
+            reply_interval=self.settings["DEFAULT_REPLY_INTERVAL"])
         self.updater = Updater(bot=self.bot)
 
     def start(self):
@@ -30,5 +37,5 @@ class App:
     def _add_jobs(self):
         self.updater.job_queue.run_repeating(
             callback=PongBot.dispatch_ready_messages,
-            interval=1
+            interval=self.dispatch_interval
         )

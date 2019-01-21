@@ -1,0 +1,5 @@
+{
+  "TG_TOKEN": "<Bot's token goes here>",
+  "DEFAULT_REPLY_INTERVAL": 5,
+  "DISPATCH_INTERVAL": 1
+}

@@ -1,7 +1,6 @@
 from telegram import Update
 
 from .bot import PongBot
-from .settings import DEFAULT_REPLY_INTERVAL
 
 
 def start(bot: PongBot, update: Update):
@@ -13,9 +12,8 @@ def ping(bot: PongBot, update: Update):
 
 
 def handle_message(bot: PongBot, update: Update):
-    interval = DEFAULT_REPLY_INTERVAL
-    bot.incubate(update.message, interval)
+    bot.incubate(update.message)
 
     bot.send_message(
         chat_id=update.message.chat_id,
-        text=f"Replying to your message in {interval} seconds")
+        text=f"Replying to your message in {bot.reply_interval} seconds")
