@@ -1,10 +1,4 @@
-from bot.bot import Bot
-from bot.settings import TG_TOKEN
+from bot.app import App
 
-
-async def echo(message):
-    print(message['message']['text'])
-
-bot = Bot(TG_TOKEN)
-bot.handler = echo
-bot.run()
+if __name__ == '__main__':
+    App().start()
